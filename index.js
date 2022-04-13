@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+require('dotenv').config();
 
 const managePrice = async (page, browser) => {
     await page.reload({ waitUntil: ["networkidle0", "domcontentloaded"] });
@@ -14,7 +15,7 @@ const managePrice = async (page, browser) => {
 (async () => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto('https://www.amazon.com/Das-Keyboard-Ultimate-Cherry-Mechanical/dp/B00JKQSGWE/ref=sr_1_1?keywords=blank+keyboard&qid=1649049673&sprefix=%2Caps%2C325&sr=8-1');
+    await page.goto(process.env.TARGET_URL);
     await managePrice(page, browser);
     setInterval(async () => {
         await managePrice(page, browser);
